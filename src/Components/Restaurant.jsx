@@ -5,7 +5,7 @@ export const Restaurant = ({ Restaurants, Style, LoadingArray, Loading }) => {
   return (
     <section className="">
       <div className="restaurants-cont flex">
-        {Restaurants.map((Restaurant) => (
+        {Restaurants?.map((Restaurant) => (
           <div key={Restaurant.restaurantId} className="items">
             <div
               style={Style(Restaurant.restaurantImage)}

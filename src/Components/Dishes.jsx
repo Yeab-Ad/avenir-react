@@ -5,7 +5,7 @@ export const Dishes = ({ dishes, Style, LoadingArray, Loading }) => {
   return (
     <section className="">
       <div className="dish-cont grid">
-        {dishes.map((dishe) => (
+        {dishes?.map((dishe) => (
           <div key={dishe.id} className="items flex">
             <div style={Style(dishe.image)} className="image"></div>
             <div className="flex contents">

@@ -36,10 +36,12 @@ function App() {
   let listsOfDish = [];
   let LoadingArray = [0, 2, 1, 3, 4, 2, 4];
 
-  useEffect(() => {
+  function getData(event) {
+    console.log(event);
     setLoading(true);
+
     let form = new FormData();
-    form.append("restaurantName", "burger");
+    form.append("restaurantName", event);
     form.append("latitude", "9.003869");
     form.append("longitude", "38.780127");
     form.append("pageNumber", "1");
@@ -51,35 +53,41 @@ function App() {
 
         setRestaurants(data.data.listRestaurants);
 
+        setDishes([]);
+
         if (listsOfDish <= 0) {
           for (let i in data.data.listDishes) {
             for (let j in data.data.listDishes[i].dishesList) {
-              setDishes((oldArray) => [
+              return setDishes((oldArray) => [
                 ...oldArray,
                 data.data.listDishes[i].dishesList[j],
               ]);
-              listsOfDish.push(data.data.listDishes[i].dishesList[j]);
             }
           }
         }
       })
       .catch((err) => {
         setServerError(true);
-        // console.log(err);
       });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    //set default value
+    getData("burger");
   }, [1]);
 
   return (
     <div className="App">
-      <Nav></Nav>
+      <Nav getData={getData}></Nav>
       <section>
         <div className="flex header">
           <h1>Restaurants results near you</h1>
           <div>
-            {Restaurants.length +
+            {Restaurants?.length +
               " restaurant" +
               " , " +
-              dishes.length +
+              dishes?.length +
               " dishes"}
           </div>
         </div>
